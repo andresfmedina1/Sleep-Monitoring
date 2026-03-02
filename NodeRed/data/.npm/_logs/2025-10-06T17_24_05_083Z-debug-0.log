@@ -1,0 +1,80 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.8.2
+2 info using node@v20.19.4
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/data/.npmrc
+5 silly config load:file:/usr/src/node-red/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm install node-red-dashboard@3.6.6
+8 verbose argv "install" "--no-audit" "--no-update-notifier" "--no-fund" "--save" "--save-prefix" "~" "--omit" "dev" "--engine-strict" "node-red-dashboard@3.6.6"
+9 verbose logfile logs-max:10 dir:/data/.npm/_logs/2025-10-06T17_24_05_083Z-
+10 verbose logfile /data/.npm/_logs/2025-10-06T17_24_05_083Z-debug-0.log
+11 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+12 silly logfile done cleaning log files
+13 silly idealTree buildDeps
+14 silly fetch manifest node-red-dashboard@3.6.6
+15 silly packumentCache full:https://registry.npmjs.org/node-red-dashboard cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/node-red-dashboard 2371ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/node-red-dashboard set size:undefined disposed:false
+18 silly placeDep ROOT node-red-dashboard@3.6.6 OK for: node-red-project@0.0.1 want: 3.6.6
+19 silly fetch manifest gridstack@^0.6.4
+20 silly packumentCache full:https://registry.npmjs.org/gridstack cache-miss
+21 silly fetch manifest compression@^1.8.1
+22 silly packumentCache full:https://registry.npmjs.org/compression cache-miss
+23 http fetch GET 200 https://registry.npmjs.org/compression 326ms (cache miss)
+24 silly packumentCache full:https://registry.npmjs.org/compression set size:undefined disposed:false
+25 http fetch GET 200 https://registry.npmjs.org/gridstack 1374ms (cache miss)
+26 silly packumentCache full:https://registry.npmjs.org/gridstack set size:undefined disposed:false
+27 silly placeDep ROOT compression@1.8.1 OK for: node-red-dashboard@3.6.6 want: ^1.8.1
+28 silly placeDep ROOT gridstack@0.6.4 OK for: node-red-dashboard@3.6.6 want: ^0.6.4
+29 silly fetch manifest compressible@~2.0.18
+30 silly packumentCache full:https://registry.npmjs.org/compressible cache-miss
+31 silly fetch manifest negotiator@~0.6.4
+32 silly packumentCache full:https://registry.npmjs.org/negotiator cache-miss
+33 silly fetch manifest on-headers@~1.1.0
+34 silly packumentCache full:https://registry.npmjs.org/on-headers cache-miss
+35 silly fetch manifest jquery@^1.8 || 2 || 3
+36 silly packumentCache full:https://registry.npmjs.org/jquery cache-miss
+37 http fetch GET 200 https://registry.npmjs.org/compressible 194ms (cache miss)
+38 silly packumentCache full:https://registry.npmjs.org/compressible set size:undefined disposed:false
+39 http fetch GET 200 https://registry.npmjs.org/on-headers 191ms (cache miss)
+40 silly packumentCache full:https://registry.npmjs.org/on-headers set size:undefined disposed:false
+41 http fetch GET 200 https://registry.npmjs.org/negotiator 974ms (cache revalidated)
+42 silly packumentCache full:https://registry.npmjs.org/negotiator set size:48046 disposed:false
+43 http fetch GET 200 https://registry.npmjs.org/jquery 1017ms (cache miss)
+44 silly packumentCache full:https://registry.npmjs.org/jquery set size:undefined disposed:false
+45 silly placeDep ROOT compressible@2.0.18 OK for: compression@1.8.1 want: ~2.0.18
+46 silly placeDep node_modules/compression negotiator@0.6.4 OK for: compression@1.8.1 want: ~0.6.4
+47 silly placeDep ROOT on-headers@1.1.0 OK for: compression@1.8.1 want: ~1.1.0
+48 silly placeDep ROOT jquery@3.7.1 OK for: gridstack@0.6.4 want: ^1.8 || 2 || 3
+49 silly reify moves {}
+50 silly tarball no local data for on-headers@https://registry.npmjs.org/on-headers/-/on-headers-1.1.0.tgz. Extracting by manifest.
+51 silly tarball no local data for compressible@https://registry.npmjs.org/compressible/-/compressible-2.0.18.tgz. Extracting by manifest.
+52 silly tarball no local data for jquery@https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz. Extracting by manifest.
+53 silly tarball no local data for compression@https://registry.npmjs.org/compression/-/compression-1.8.1.tgz. Extracting by manifest.
+54 silly tarball no local data for node-red-dashboard@https://registry.npmjs.org/node-red-dashboard/-/node-red-dashboard-3.6.6.tgz. Extracting by manifest.
+55 silly tarball no local data for gridstack@https://registry.npmjs.org/gridstack/-/gridstack-0.6.4.tgz. Extracting by manifest.
+56 silly tarball no local data for negotiator@https://registry.npmjs.org/negotiator/-/negotiator-0.6.4.tgz. Extracting by manifest.
+57 http fetch GET 200 https://registry.npmjs.org/compressible/-/compressible-2.0.18.tgz 497ms (cache miss)
+58 http fetch GET 200 https://registry.npmjs.org/on-headers/-/on-headers-1.1.0.tgz 511ms (cache miss)
+59 http fetch GET 200 https://registry.npmjs.org/compression/-/compression-1.8.1.tgz 538ms (cache miss)
+60 http fetch GET 200 https://registry.npmjs.org/negotiator/-/negotiator-0.6.4.tgz 1597ms (cache miss)
+61 http fetch GET 200 https://registry.npmjs.org/gridstack/-/gridstack-0.6.4.tgz 3614ms (cache miss)
+62 http fetch GET 200 https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz 3809ms (cache miss)
+63 http fetch GET 200 https://registry.npmjs.org/node-red-dashboard/-/node-red-dashboard-3.6.6.tgz 5610ms (cache miss)
+64 warn deprecated node-red-dashboard@3.6.6: No longer maintained - please look at alternatives such as @flowfuse/node-red-dashboard or node-red-contrib-uibuilder
+65 info run node-red-dashboard@3.6.6 postinstall node_modules/node-red-dashboard node fixgrid.js
+66 info run node-red-dashboard@3.6.6 postinstall { code: 0, signal: null }
+67 silly ADD node_modules/jquery
+68 silly ADD node_modules/on-headers
+69 silly ADD node_modules/compressible
+70 silly ADD node_modules/gridstack
+71 silly ADD node_modules/compression
+72 silly ADD node_modules/compression/node_modules/negotiator
+73 silly ADD node_modules/node-red-dashboard
+74 verbose cwd /data
+75 verbose os Linux 6.6.87.2-microsoft-standard-WSL2
+76 verbose node v20.19.4
+77 verbose npm  v10.8.2
+78 verbose exit 0
+79 info ok

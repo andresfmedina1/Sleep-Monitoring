@@ -1,0 +1,13 @@
+{
+  "catalogURL": "http://catalog:9080",
+  "reportsURL": "http://reports_generator:8093",
+  "thingspeakURL": "https://api.thingspeak.com",
+
+  "serviceInfo": {
+    "serviceID": "ReportsGenerator",
+    "REST_endpoint": "http://reports_generator:8093",
+    "MQTT_sub": [],
+    "MQTT_pub": []
+  }
+}
+

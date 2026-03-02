@@ -1,0 +1,26 @@
+{
+    "catalogURL": "http://catalog:9080/catalog",
+    "brokerIP": "test.mosquitto.org",
+    "brokerPort": 1883,
+    "timezone": "Europe/Rome",
+  
+    "light_raw_threshold": 1500,
+    "light_wait_sec": 5,
+  
+    "serviceInfo": {
+      "serviceID": "TimeShift",
+      "MQTT_pub": {
+        "alert_timeshift": "SC/alerts/{User1}/{Room1}/timeshift",
+        "sampling": "SC/{User1}/{Room1}/sampling",
+        "bedtime": "SC/{User1}/{Room1}/bedtime",
+        "wakeup": "SC/{User1}/{Room1}/wakeup",
+        "down": "SC/{User1}/{Room1}/down",
+        "servoV": "SC/{User1}/{Room1}/servoV",
+        "LedL": "SC/{User1}/{Room1}/LedL"
+      },
+      "MQTT_sub": {
+        "Light": "SC/{User1}/{Room1}/Light"
+      }
+    }
+  }
+  

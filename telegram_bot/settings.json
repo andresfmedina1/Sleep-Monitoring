@@ -1,0 +1,16 @@
+{
+    "catalogURL": "http://catalog:9080",
+    "brokerIP": "test.mosquitto.org",
+    "brokerPort": 1883,
+    "serviceInfo": {
+      "serviceID": "TelegramBot",
+      "telegram_token": "8389356663:AAH15YAmpUxXg2-1wa8qwK_my8tIcPIBuXU",
+      "MQTT_sub": [
+        "SC/alerts/{User1}/{Room1}/hr",
+        "SC/alerts/{User1}/{Room1}/dht"
+      ],
+      "MQTT_pub": []
+    }
+  }
+  
+  

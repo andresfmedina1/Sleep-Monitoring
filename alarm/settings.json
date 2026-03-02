@@ -1,0 +1,26 @@
+{
+    "catalogURL": "http://catalog:9080/catalog",
+    "brokerIP": "test.mosquitto.org",
+    "brokerPort": 1883,
+  
+    "serviceInfo": {
+      "serviceID": "AlarmControl",
+      "MQTT_sub": [
+        "SC/{User1}/{Room1}/hr",
+        "SC/{User1}/{Room1}/dht"
+      ],
+      "MQTT_pub_alert_env": "SC/alerts/{User1}/{Room1}/dht",
+      "MQTT_pub_alert_hr":  "SC/alerts/{User1}/{Room1}/hr"
+    },
+  
+  
+    "fromCatalog": true,
+  
+    "thresholds": {
+      "bpm":  [0, 120],
+      "temp": [0.0, 28.0],
+      "hum":  [0.0, 70.0]
+    }
+  }
+  
+  

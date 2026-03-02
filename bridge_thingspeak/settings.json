@@ -1,0 +1,25 @@
+{
+  "catalogURL": "http://catalog:9080/catalog",
+  "thingspeak_adaptorURL": "http://thingspeak-adaptor:8079",
+  "ThingspeakWriteURL": "https://api.thingspeak.com/update",
+  "ThingspeakReadURL": "https://api.thingspeak.com/channels",
+  "brokerIP": "test.mosquitto.org",
+  "brokerPort": 1883,
+  "serviceInfo": {
+    "serviceID": "ThingSpeakAdaptor",
+    "REST_endpoint": "https://api.thingspeak.com",
+    "MQTT_sub": ["SC/#"],
+    "MQTT_pub": [],
+    "timestamp": "2025-10-02 21:45:00"
+  },
+  "fields": {
+    "temp":   "field1",
+    "hum":    "field2",
+    "bpm":    "field3",
+    "raw":    "field4",
+    "servoFan":     "field5",
+    "servoCurtain": "field6",
+    "LedL":         "field7"
+  },
+  "minPeriodSec": 16
+}

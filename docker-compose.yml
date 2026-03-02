@@ -1,0 +1,85 @@
+version: "3.9"
+
+services:
+  # ---------- CATALOG ----------
+  catalog:
+    build: ./catalog
+    ports:
+      - "9080:9080"
+    environment:
+      - CATALOG_PATH=/data/catalog.json
+      # - CATALOG_WRITE_TOKEN=supersecreto
+    volumes:
+      - ./catalog/catalog.json:/data/catalog.json:rw
+    restart: unless-stopped
+
+
+  # ---------- BRIDGE (ThingSpeak) ----------
+  bridge_thingspeak:
+    build:
+      context: .
+      dockerfile: bridge_thingspeak/Dockerfile
+    container_name: bridge_thingspeak
+    environment:
+      - CATALOG_URL=http://catalog:9080/catalog
+    depends_on:
+      - catalog
+    restart: unless-stopped
+
+
+  # ---------- ALARM CONTROL ----------
+  alarm:
+    build:
+      context: .
+      dockerfile: alarm/Dockerfile
+    container_name: alarm
+    env_file: .env
+    depends_on:
+      - catalog
+      - bridge_thingspeak
+    restart: unless-stopped
+
+
+  # ---------- TELEGRAM BOT ----------
+  telegrambot:
+    build:
+      context: .
+      dockerfile: telegram_bot/Dockerfile
+    container_name: telegrambot
+    env_file:
+      - ./.env
+    depends_on:
+      - catalog
+    restart: unless-stopped
+
+
+  # ---------- TIME SHIFT ----------
+  timeshift:
+    build:
+      context: .
+      dockerfile: timeshift/Dockerfile
+    container_name: timeshift
+    environment:
+      - CATALOG_URL=http://catalog:9080/catalog
+    depends_on:
+      - catalog
+      - telegrambot
+    restart: unless-stopped
+
+
+  reports-generator:
+    build:
+      context: ./reportGenerator
+      dockerfile: Dockerfile
+    container_name: reports-generator
+    restart: unless-stopped
+    ports:
+      - "8093:8093"
+    env_file:
+      - ./.env
+    environment:
+      - CATALOG_URL=http://catalog:9080/catalog
+    depends_on:
+      - catalog
+
+

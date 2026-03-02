@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered_lab
+    restart: unless-stopped
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./data:/data
+    environment:
+      - TZ=Europe/Rome

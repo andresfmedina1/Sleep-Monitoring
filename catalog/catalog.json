@@ -1,0 +1,244 @@
+{
+  "catalog_url": "http://catalog:9080",
+  "projectOwners": [
+    "Andres Felipe Medina Ospina",
+    "Tatiana Camila Cordoba Acosta"
+  ],
+  "project_name": "sleepmonitoring",
+  "lastUpdate": "2025-10-09 10:00:00",
+  "broker": {
+    "IP": "test.mosquitto.org",
+    "port": 1883
+  },
+  "servicesList": [
+    {
+      "serviceID": "TelegramBot",
+      "REST_endpoint": "",
+      "MQTT_sub": [
+        "SC/alerts/{User1}/{Room1}/hr",
+        "SC/alerts/{User1}/{Room1}/dht"
+      ],
+      "MQTT_pub": [],
+      "timestamp": "2025-10-09 10:00:00"
+    },
+    {
+      "serviceID": "ReportsGenerator",
+      "REST_endpoint": "http://reports-generator:8093",
+      "MQTT_sub": [
+        "SC/{User1}/{Room1}/hr",
+        "SC/{User1}/{Room1}/dht",
+        "SC/{User1}/{Room1}/light",
+        "SC/alerts/{User1}/{Room1}"
+      ],
+      "MQTT_pub": [],
+      "timestamp": "2025-10-02 21:45:00"
+    },
+    {
+      "serviceID": "AlarmControl",
+      "REST_endpoint": "",
+      "MQTT_sub": [
+        "SC/{User1}/{Room1}/hr",
+        "SC/{User1}/{Room1}/dht"
+      ],
+      "MQTT_pub": [
+        "SC/alerts/{User1}/{Room1}/hr",
+        "SC/alerts/{User1}/{Room1}/dht",
+        "SC/{User1}/{Room1}/down"
+      ],
+      "timestamp": "2025-10-02 21:45:00"
+    },
+    {
+      "serviceID": "ThingSpeakAdaptor",
+      "REST_endpoint": "http://thingspeak-adaptor:8092",
+      "MQTT_sub": [
+        "SC/{User1}/{Room1}/hr",
+        "SC/{User1}/{Room1}/dht",
+        "SC/{User1}/{Room1}/light"
+      ],
+      "MQTT_pub": [],
+      "timestamp": "2025-10-02 21:45:00"
+    },
+    {
+      "serviceID": "TimeControl",
+      "REST_endpoint": "",
+      "MQTT_sub": [],
+      "MQTT_pub": [
+        "SC/{User1}/{Room1}/sampling"
+      ],
+      "timestamp": "2025-10-02 21:45:00"
+    },
+    {
+      "serviceID": "TimeShift",
+      "REST_endpoint": "",
+      "MQTT_sub": [],
+      "MQTT_pub": [
+        "SC/{User1}/{Room1}/bedtime",
+        "SC/{User1}/{Room1}/wakeup",
+        "SC/{User1}/{Room1}/servo",
+        "SC/{User1}/{Room1}/servoV",
+        "SC/{User1}/{Room1}/down"
+      ],
+      "timestamp": "2025-10-02 21:45:00"
+    },
+    {
+      "serviceID": "DeviceConnector",
+      "REST_endpoint": "http://device-connector:8181",
+      "MQTT_sub": [
+        "SC/{User1}/{Room1}/sampling",
+        "SC/{User1}/{Room1}/bedtime",
+        "SC/{User1}/{Room1}/wakeup",
+        "SC/{User1}/{Room1}/down",
+        "SC/{User1}/{Room1}/servo",
+        "SC/{User1}/{Room1}/ServoV"
+      ],
+      "MQTT_pub": [
+        "SC/{User1}/{Room1}/hr",
+        "SC/{User1}/{Room1}/dht",
+        "SC/{User1}/{Room1}/light"
+      ],
+      "timestamp": "2025-10-02 21:45:00"
+    },
+    {
+      "serviceID": "Dashboard",
+      "REST_endpoint": "http://dashboard:8091/dashboard/register",
+      "MQTT_sub": [
+        "SC/{User1}/{Room1}/hr",
+        "SC/{User1}/{Room1}/dht",
+        "SC/{User1}/{Room1}/light",
+        "SC/alerts/{User1}/{Room1}"
+      ],
+      "MQTT_pub": [
+        "SC/{User1}/{Room1}/down",
+        "SC/{User1}/{Room1}/servo",
+        "SC/{User1}/{Room1}/servoV",
+        "SC/{User1}/{Room1}/sampling"
+      ],
+      "timestamp": "2025-10-02 21:45:00"
+    }
+  ],
+  "devicesList": [
+    {
+      "deviceID": "ESP1",
+      "deviceName": "HealthMonitorPPG",
+      "device_type": "sensor_actuator",
+      "measureType": [
+        "HeartRate"
+      ],
+      "availableServices": [
+        "MQTT"
+      ],
+      "servicesDetails": [
+        {
+          "serviceType": "MQTT",
+          "topic": [
+            "SC/{User1}/{Room1}/hr",
+            "SC/{User1}/{Room1}/led",
+            "SC/{User1}/{Room1}/buzzer"
+          ]
+        }
+      ],
+      "lastUpdate": "2025-10-02 21:45:00"
+    },
+    {
+      "deviceID": "ESP2",
+      "deviceName": "EnvMonitorDHT",
+      "device_type": "sensor",
+      "measureType": [
+        "Temperature",
+        "Humidity",
+        "Servo"
+      ],
+      "availableServices": [
+        "MQTT"
+      ],
+      "servicesDetails": [
+        {
+          "serviceType": "MQTT",
+          "topic": [
+            "SC/{User1}/{Room1}/dht",
+            "SC/{User1}/{Room1}/ServoDHT"
+          ]
+        }
+      ],
+      "lastUpdate": "2025-10-02 21:45:00"
+    },
+    {
+      "deviceID": "ESP3",
+      "deviceName": "ActuatorControl",
+      "device_type": "actuator",
+      "measureType": [
+        "Servo",
+        "Light",
+        "LedL"
+      ],
+      "availableServices": [
+        "MQTT"
+      ],
+      "servicesDetails": [
+        {
+          "serviceType": "MQTT",
+          "topic": [
+            "SC/{User1}/{Room1}/servoCurtain",
+            "SC/{User1}/{Room1}/Light",
+            "SC/{User1}/{Room1}/LedL"
+          ]
+        }
+      ],
+      "lastUpdate": "2025-10-02 21:45:00"
+    }
+  ],
+  "roomsList": [
+    {
+      "roomID": "{Room1}",
+      "userID": "{User1}",
+      "connected_devices": [
+        {
+          "deviceID": "ESP1"
+        },
+        {
+          "deviceID": "ESP2"
+        },
+        {
+          "deviceID": "ESP3"
+        }
+      ],
+      "lastUpdate": "2025-10-02 21:45:00"
+    }
+  ],
+  "usersList": [
+    {
+      "userID": "{User1}",
+      "role": "User",
+      "roomID": "{Room1}",
+      "user_information": {
+        "userName": "User1",
+        "phone": "+573001112233",
+        "timeawake": "10:50",
+        "timesleep": "10:38"
+      },
+      "threshold_parameters": {
+        "hr_low": 45,
+        "hr_high": 110,
+        "temp_low": 0.0,
+        "temp_high": 35.0,
+        "hum_low": 0.0,
+        "hum_high": 60.0,
+        "pot_min": 0,
+        "pot_max": 1023
+      },
+      "thingspeak_info": {
+        "apikeys": [
+          "5NEY81Y5TTKRGUYG",
+          "BYZ3PLA6ZEKXGBKV"
+        ],
+        "channel": "3030033"
+      },
+      "dashboard_info": {
+        "dashboard_username": "user1",
+        "dashboard_password": null
+      },
+      "lastUpdate": "2025-10-09 10:00:00",
+      "timestamp": "2025-10-29 09:34:51"
+    }
+  ]
+}

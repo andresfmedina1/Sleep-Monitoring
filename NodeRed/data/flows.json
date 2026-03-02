@@ -1,0 +1,898 @@
+[
+    {
+        "id": "login_tab_flow",
+        "type": "tab",
+        "label": "Login",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "sleep_lab_auto_flow",
+        "type": "tab",
+        "label": "Sleep Lab (Auto)",
+        "disabled": false,
+        "info": "Automatic load: full night if awake; 1/min streaming if sleeping."
+    },
+    {
+        "id": "ui_tab_login",
+        "type": "ui_tab",
+        "name": "Login",
+        "icon": "person",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "ui_group_access",
+        "type": "ui_group",
+        "name": "Access",
+        "tab": "ui_tab_login",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "ui_tab_sleep",
+        "type": "ui_tab",
+        "name": "Sleep Lab",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "ui_group_status",
+        "type": "ui_group",
+        "name": "Status",
+        "tab": "ui_tab_sleep",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "ui_group_hr",
+        "type": "ui_group",
+        "name": "Heart Rate",
+        "tab": "ui_tab_sleep",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "ui_group_temp",
+        "type": "ui_group",
+        "name": "Temperature",
+        "tab": "ui_tab_sleep",
+        "order": 3,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "ui_group_hum",
+        "type": "ui_group",
+        "name": "Humidity",
+        "tab": "ui_tab_sleep",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "ui_group_metrics",
+        "type": "ui_group",
+        "name": "Alarms & Metrics",
+        "tab": "ui_tab_sleep",
+        "order": 5,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "4525260bc9ddbccf",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "ui_username",
+        "type": "ui_text_input",
+        "z": "login_tab_flow",
+        "name": "Username",
+        "label": "Username",
+        "group": "ui_group_access",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "user",
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "fn_login_validate"
+            ]
+        ]
+    },
+    {
+        "id": "ui_password",
+        "type": "ui_text_input",
+        "z": "login_tab_flow",
+        "name": "Password",
+        "label": "Password",
+        "group": "ui_group_access",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "passthru": true,
+        "mode": "password",
+        "delay": 300,
+        "topic": "pass",
+        "x": 180,
+        "y": 170,
+        "wires": [
+            [
+                "fn_login_validate"
+            ]
+        ]
+    },
+    {
+        "id": "ui_button_login",
+        "type": "ui_button",
+        "z": "login_tab_flow",
+        "name": "Login button",
+        "group": "ui_group_access",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Sign in",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#0094ce",
+        "icon": "fa-sign-in",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "login",
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "fn_login_validate"
+            ]
+        ]
+    },
+    {
+        "id": "fn_login_validate",
+        "type": "function",
+        "z": "login_tab_flow",
+        "name": "Validate credentials",
+        "func": "if (msg.topic === \"user\") { flow.set(\"login_user\", msg.payload); return null; }\nif (msg.topic === \"pass\") { flow.set(\"login_pass\", msg.payload); return null; }\nif (msg.topic === \"login\") {\n  const u = flow.get(\"login_user\") || \"\";\n  const p = flow.get(\"login_pass\") || \"\";\n  const validUser = \"tatiana\";\n  const validPass = \"1234\";\n  if (u === validUser && p === validPass) {\n    flow.set(\"loggedIn\", true);\n    node.status({fill:\"green\", shape:\"dot\", text:\"Login OK\"});\n    return { payload:{ tab:\"Sleep Lab\" }, ui_control:{ tab:\"Sleep Lab\" } };\n  } else {\n    flow.set(\"loggedIn\", false);\n    node.status({fill:\"red\", shape:\"ring\", text:\"Invalid username or password\"});\n  }\n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 170,
+        "wires": [
+            [
+                "ui_control_login"
+            ]
+        ]
+    },
+    {
+        "id": "ui_control_login",
+        "type": "ui_ui_control",
+        "z": "login_tab_flow",
+        "name": "",
+        "events": "all",
+        "x": 710,
+        "y": 170,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ui_control_sleep",
+        "type": "ui_ui_control",
+        "z": "sleep_lab_auto_flow",
+        "name": "Detect dashboard connect",
+        "events": "connect",
+        "x": 410,
+        "y": 120,
+        "wires": [
+            [
+                "fn_init"
+            ]
+        ]
+    },
+    {
+        "id": "inject_minute_tick",
+        "type": "inject",
+        "z": "sleep_lab_auto_flow",
+        "name": "Tick every 60s",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "tick",
+        "payloadType": "date",
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "fn_router_state"
+            ]
+        ]
+    },
+    {
+        "id": "fn_init",
+        "type": "function",
+        "z": "sleep_lab_auto_flow",
+        "name": "Init (timezone & files)",
+        "func": "flow.set('sleepStart','23:00');\nflow.set('sleepEnd','07:00');\nflow.set('tz','Europe/Rome');\nflow.set('nightLoaded',false);\nflow.set('stream_index',-1);\nreturn {payload:'preload'};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 860,
+        "y": 120,
+        "wires": [
+            [
+                "file_hr",
+                "file_temp",
+                "file_hum",
+                "fn_router_state"
+            ]
+        ]
+    },
+    {
+        "id": "file_hr",
+        "type": "file in",
+        "z": "sleep_lab_auto_flow",
+        "name": "Read /data/heart_rate.csv",
+        "filename": "/data/heart_rate.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "x": 530,
+        "y": 260,
+        "wires": [
+            [
+                "csv_hr"
+            ]
+        ]
+    },
+    {
+        "id": "csv_hr",
+        "type": "csv",
+        "z": "sleep_lab_auto_flow",
+        "name": "Parse HR CSV",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 800,
+        "y": 260,
+        "wires": [
+            [
+                "fn_store_hr"
+            ]
+        ]
+    },
+    {
+        "id": "fn_store_hr",
+        "type": "function",
+        "z": "sleep_lab_auto_flow",
+        "name": "Store HR in memory",
+        "func": "function fixTZ(s){return (s||\"\").replace(/([+-]\\d{2})(\\d{2})$/, \"$1:$2\");}\nlet rows=Array.isArray(msg.payload)?msg.payload:[msg.payload];\nrows=rows.map(r=>{const ts=fixTZ((r.timestamp_iso||r.timestamp||r[\"timestamp_iso\"])+'');const hr=Number(r.heart_rate_bpm||r.hr||r[\"heart_rate_bpm\"]);return {ts,hr};}).filter(r=>r.ts&&!isNaN(r.hr));\nrows.sort((a,b)=>new Date(a.ts).getTime()-new Date(b.ts).getTime());\nflow.set('hr_rows',rows);\nflow.set('hr_index',0);\nreturn null;",
+        "outputs": 0,
+        "noerr": 0,
+        "x": 1030,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "file_temp",
+        "type": "file in",
+        "z": "sleep_lab_auto_flow",
+        "name": "Read /data/temperature.csv",
+        "filename": "/data/temperature.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "x": 620,
+        "y": 310,
+        "wires": [
+            [
+                "csv_temp"
+            ]
+        ]
+    },
+    {
+        "id": "csv_temp",
+        "type": "csv",
+        "z": "sleep_lab_auto_flow",
+        "name": "Parse Temp CSV",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 820,
+        "y": 310,
+        "wires": [
+            [
+                "fn_store_temp"
+            ]
+        ]
+    },
+    {
+        "id": "fn_store_temp",
+        "type": "function",
+        "z": "sleep_lab_auto_flow",
+        "name": "Store Temp in memory",
+        "func": "function fixTZ(s){return (s||\"\").replace(/([+-]\\d{2})(\\d{2})$/, \"$1:$2\");}\nlet rows=Array.isArray(msg.payload)?msg.payload:[msg.payload];\nrows=rows.map(r=>{const ts=fixTZ((r.timestamp_iso||r.timestamp||r[\"timestamp_iso\"])+'');const t=Number(r.temperature_c||r.t||r[\"temperature_c\"]);return {ts,t};}).filter(r=>r.ts&&!isNaN(r.t));\nrows.sort((a,b)=>new Date(a.ts).getTime()-new Date(b.ts).getTime());\nflow.set('temp_rows',rows);\nflow.set('temp_index',0);\nreturn null;",
+        "outputs": 0,
+        "noerr": 0,
+        "x": 1050,
+        "y": 310,
+        "wires": []
+    },
+    {
+        "id": "file_hum",
+        "type": "file in",
+        "z": "sleep_lab_auto_flow",
+        "name": "Read /data/humidity.csv",
+        "filename": "/data/humidity.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "x": 610,
+        "y": 360,
+        "wires": [
+            [
+                "csv_hum"
+            ]
+        ]
+    },
+    {
+        "id": "csv_hum",
+        "type": "csv",
+        "z": "sleep_lab_auto_flow",
+        "name": "Parse Hum CSV",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 810,
+        "y": 360,
+        "wires": [
+            [
+                "fn_store_hum"
+            ]
+        ]
+    },
+    {
+        "id": "fn_store_hum",
+        "type": "function",
+        "z": "sleep_lab_auto_flow",
+        "name": "Store Hum in memory + mean",
+        "func": "let rows=Array.isArray(msg.payload)?msg.payload:[msg.payload];\nrows=rows.map(r=>({ts:(r.timestamp_iso||r.timestamp||r[\"timestamp_iso\"])+'',h:Number(r.humidity_pct||r.h||r[\"humidity_pct\"])})).filter(r=>r.ts&&!isNaN(r.h));\nlet vals=rows.map(r=>r.h);\nlet mean=vals.reduce((a,b)=>a+b,0)/vals.length;\nflow.set('hum_rows',rows);\nflow.set('hum_mean',mean);\nreturn {payload:mean.toFixed(2)};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1070,
+        "y": 360,
+        "wires": [
+            [
+                "ui_text_hum_mean"
+            ]
+        ]
+    },
+    {
+        "id": "fn_router_state",
+        "type": "function",
+        "z": "sleep_lab_auto_flow",
+        "name": "Sleeping or Awake?",
+        "func": "function parseHM(hm){const [H,M]=hm.split(':').map(Number);return {H,M};}\nconst sleepStart=flow.get('sleepStart')||'23:00';\nconst sleepEnd=flow.get('sleepEnd')||'07:00';\nconst {H:Hs,M:Ms}=parseHM(sleepStart);\nconst {H:He,M:Me}=parseHM(sleepEnd);\nconst now=new Date();\nconst h=now.getHours(),m=now.getMinutes();\nfunction inSleep(h,m){const start=Hs*60+Ms;const end=He*60+Me;const cur=h*60+m;return start<=end? (cur>=start&&cur<end) : (cur>=start||cur<end);}\nconst sleeping=inSleep(h,m);\nif(!sleeping){msg.state='awake';msg.title='Person Awake';msg.subtitle=now.toLocaleString()+' — Temperature, Humidity and PPG sensors are OFF';}\nelse{msg.state='sleep';msg.title='Person Sleeping';msg.subtitle=now.toLocaleString()+' — Sensors ON (streaming minute-by-minute)';}\nnode.send([Object.assign({},msg)]);\nreturn [null,{payload:{sleeping}}];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 880,
+        "y": 170,
+        "wires": [
+            [
+                "ui_status_card"
+            ],
+            [
+                "sw_state_action"
+            ]
+        ]
+    },
+    {
+        "id": "ui_status_card",
+        "type": "ui_template",
+        "z": "sleep_lab_auto_flow",
+        "group": "ui_group_status",
+        "name": "Status card",
+        "order": 1,
+        "width": 12,
+        "height": 2,
+        "format": "<div style=\"padding:12px;border-radius:16px;box-shadow:0 6px 16px rgba(0,0,0,.08);display:flex;align-items:center;gap:16px;\">\n  <div style=\"width:12px;height:12px;border-radius:50%;background: {{msg.state==='awake' ? '#ff6b6b' : '#2ecc71'}};\"></div>\n  <div>\n    <div style=\"font-weight:700;font-size:18px;\">{{msg.title || 'Status'}}</div>\n    <div style=\"opacity:.8;\">{{msg.subtitle}}</div>\n  </div>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 1490,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "sw_state_action",
+        "type": "switch",
+        "z": "sleep_lab_auto_flow",
+        "name": "Sleeping? stream / Awake? wait for button",
+        "property": "payload.sleeping",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1250,
+        "y": 170,
+        "wires": [
+            [
+                "fn_stream_next"
+            ],
+            [
+                "fn_load_night_once"
+            ]
+        ]
+    },
+    {
+        "id": "ui_btn_load",
+        "type": "ui_button",
+        "z": "sleep_lab_auto_flow",
+        "name": "Load last night",
+        "group": "ui_group_status",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Load last night",
+        "tooltip": "Load last night's data from CSV",
+        "color": "",
+        "bgcolor": "#0094ce",
+        "className": "",
+        "icon": "fa-download",
+        "payload": "load",
+        "payloadType": "str",
+        "topic": "load",
+        "topicType": "str",
+        "x": 260,
+        "y": 220,
+        "wires": [
+            [
+                "fn_btn_trigger_load"
+            ]
+        ]
+    },
+    {
+        "id": "fn_btn_trigger_load",
+        "type": "function",
+        "z": "sleep_lab_auto_flow",
+        "name": "Prepare & trigger full-night load",
+        "func": "flow.set('nightLoaded',false);\nflow.set('stream_index',-1);\nreturn {payload:'go'};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 900,
+        "y": 220,
+        "wires": [
+            [
+                "fn_load_night_once"
+            ]
+        ]
+    },
+    {
+        "id": "fn_load_night_once",
+        "type": "function",
+        "z": "sleep_lab_auto_flow",
+        "name": "Load full night (once)",
+        "func": "if (flow.get('nightLoaded')) return null;\n\nlet hr = flow.get('hr_rows') || [];\nlet temp = flow.get('temp_rows') || [];\nlet didLoad = false;\n\nfunction ts(ms){\n    const t = new Date(ms).getTime();\n    return isNaN(t) ? Date.now() : t;\n}\n\n// ────────────── HEART RATE ──────────────\nif (hr.length){\n    const hrVals = hr.map(r => r.hr).filter(v => !isNaN(v));\n\n    // Envía cada punto al chart (Output 1)\n    hr.forEach(r=>{\n        node.send([\n            { payload: r.hr, topic: \"HR\", timestamp: ts(r.ts) },\n            null,null,null,null,null,null,null\n        ]);\n    });\n\n    // Métricas HR + HRV\n    const hrMin = Math.min(...hrVals);\n    const hrMax = Math.max(...hrVals);\n\n    let sdnn = 0, rmssd = 0;\n    if (hrVals.length >= 2){\n        const rr = hrVals.map(h => 60000.0 / h);\n        const meanRR = rr.reduce((a,b)=>a+b,0)/rr.length;\n        sdnn = Math.sqrt(rr.reduce((acc,v)=>acc+Math.pow(v-meanRR,2),0)/(rr.length-1));\n\n        const diffs = [];\n        for (let i=1;i<rr.length;i++) diffs.push(rr[i]-rr[i-1]);\n        if (diffs.length > 0){\n            rmssd = Math.sqrt(diffs.reduce((a,b)=>a+b*b,0)/diffs.length);\n        }\n    }\n\n    // Alarmas: cruces > 100 bpm\n    let events = 0;\n    for (let i=1;i<hrVals.length;i++){\n        if (hrVals[i-1] <= 100 && hrVals[i] > 100) events++;\n    }\n\n    node.send([\n        null,\n        { payload: hrMin },\n        { payload: hrMax },\n        { payload: sdnn.toFixed(2) },\n        { payload: rmssd.toFixed(2) },\n        { payload: events },\n        null,\n        null\n    ]);\n\n    didLoad = true;\n}\n\n// ────────────── TEMPERATURE ──────────────\nif (temp.length){\n    // Envía cada punto al chart (Output 2)\n    temp.forEach(r=>{\n        node.send([\n            null,\n            { payload: r.t, topic: \"Temp\", timestamp: ts(r.ts) },\n            null,null,null,null,null,null\n        ]);\n    });\n\n    // Media temperatura → Output 7\n    const tVals = temp.map(r => r.t).filter(v => !isNaN(v));\n    if (tVals.length){\n        const tMean = tVals.reduce((a,b)=>a+b,0)/tVals.length;\n        node.send([\n            null,null,null,null,null,null,\n            { payload: tMean.toFixed(2) },\n            null\n        ]);\n    }\n\n    didLoad = true;\n}\n\n// ────────────── Final ──────────────\nif (didLoad){\n    flow.set('nightLoaded', true);\n}\n\nreturn null;\n",
+        "outputs": 8,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1540,
+        "y": 260,
+        "wires": [
+            [
+                "ui_chart_hr",
+                "3078b122653b0602"
+            ],
+            [
+                "ui_chart_temp",
+                "847320b8062bb75f"
+            ],
+            [
+                "ui_text_hr_min"
+            ],
+            [
+                "ui_text_hr_max"
+            ],
+            [
+                "ui_text_hr_sdnn"
+            ],
+            [
+                "ui_text_hr_rmssd"
+            ],
+            [
+                "ui_text_alarms"
+            ],
+            [
+                "ui_text_temp_mean"
+            ]
+        ]
+    },
+    {
+        "id": "fn_stream_next",
+        "type": "function",
+        "z": "sleep_lab_auto_flow",
+        "name": "Minute-by-minute streaming (sleep)",
+        "func": "let hrRows=flow.get('hr_rows')||[];\nlet tRows=flow.get('temp_rows')||[];\nif(!hrRows.length||!tRows.length) return null;\nfunction parseHM(hm){const [H,M]=hm.split(':').map(Number);return {H,M};}\nconst sleepStart=flow.get('sleepStart')||'23:00';\nconst {H:Hs,M:Ms}=parseHM(sleepStart);\nconst now=new Date();\nlet start=new Date(now);start.setHours(Hs,Ms,0,0);\nif(now<start){start.setDate(start.getDate()-1);} \nlet minutesSince=Math.floor((now-start)/60000);\nif(minutesSince<0) minutesSince=0;\nif(minutesSince>=hrRows.length) minutesSince=hrRows.length-1;\nlet lastIndex=flow.get('stream_index')||-1;\nif(minutesSince===lastIndex) return null;\nflow.set('stream_index',minutesSince);\nlet hr=hrRows[minutesSince];\nlet tr=tRows[minutesSince];\nfunction ts(ms){const t=new Date(ms).getTime();return isNaN(t)?Date.now():t;}\nnode.send([{payload:{x:ts(hr.ts),y:hr.hr},topic:'HR'},{payload:{x:ts(tr.ts),y:tr.t},topic:'Temp'}]);\nreturn null;",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 1520,
+        "y": 120,
+        "wires": [
+            [
+                "ui_chart_hr"
+            ],
+            [
+                "ui_chart_temp"
+            ]
+        ]
+    },
+    {
+        "id": "ui_text_hum_mean",
+        "type": "ui_text",
+        "z": "sleep_lab_auto_flow",
+        "group": "ui_group_hum",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "name": "Humidity mean",
+        "label": "Humidity mean",
+        "format": "{{msg.payload}} %",
+        "layout": "row-spread",
+        "x": 1340,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "ui_chart_hr",
+        "type": "ui_chart",
+        "z": "sleep_lab_auto_flow",
+        "name": "Heart Rate",
+        "group": "ui_group_hr",
+        "order": 1,
+        "width": 12,
+        "height": 6,
+        "label": "Heart Rate (bpm)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "Preparing data…",
+        "dot": false,
+        "ymin": "40",
+        "ymax": "180",
+        "removeOlder": 0,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1890,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ui_chart_temp",
+        "type": "ui_chart",
+        "z": "sleep_lab_auto_flow",
+        "name": "Temperature",
+        "group": "ui_group_temp",
+        "order": 1,
+        "width": 12,
+        "height": 5,
+        "label": "Temperature (°C)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "Preparing data…",
+        "dot": false,
+        "ymin": "18",
+        "ymax": "26",
+        "removeOlder": 0,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "outputs": 0,
+        "useDifferentColor": false,
+        "x": 1890,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ui_text_hr_min",
+        "type": "ui_text",
+        "z": "sleep_lab_auto_flow",
+        "group": "ui_group_metrics",
+        "order": 2,
+        "width": 2,
+        "height": 1,
+        "name": "HR min",
+        "label": "HR min",
+        "format": "{{msg.payload}} bpm",
+        "layout": "row-spread",
+        "x": 1920,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ui_text_hr_max",
+        "type": "ui_text",
+        "z": "sleep_lab_auto_flow",
+        "group": "ui_group_metrics",
+        "order": 3,
+        "width": 2,
+        "height": 1,
+        "name": "HR max",
+        "label": "HR max",
+        "format": "{{msg.payload}} bpm",
+        "layout": "row-spread",
+        "x": 1920,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ui_text_hr_sdnn",
+        "type": "ui_text",
+        "z": "sleep_lab_auto_flow",
+        "group": "ui_group_metrics",
+        "order": 4,
+        "width": 3,
+        "height": 1,
+        "name": "HRV SDNN",
+        "label": "HRV SDNN",
+        "format": "{{msg.payload}} ms",
+        "layout": "row-spread",
+        "x": 1910,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ui_text_hr_rmssd",
+        "type": "ui_text",
+        "z": "sleep_lab_auto_flow",
+        "group": "ui_group_metrics",
+        "order": 5,
+        "width": 3,
+        "height": 1,
+        "name": "HRV RMSSD",
+        "label": "HRV RMSSD",
+        "format": "{{msg.payload}} ms",
+        "layout": "row-spread",
+        "x": 1920,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "ui_text_alarms",
+        "type": "ui_text",
+        "z": "sleep_lab_auto_flow",
+        "group": "ui_group_metrics",
+        "order": 6,
+        "width": 3,
+        "height": 1,
+        "name": "Alarms (events)",
+        "label": "Alarms (events)",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1920,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ui_text_temp_mean",
+        "type": "ui_text",
+        "z": "sleep_lab_auto_flow",
+        "group": "ui_group_temp",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "name": "Temperature mean (night)",
+        "label": "Temperature mean (night)",
+        "format": "{{msg.payload}} °C",
+        "layout": "row-spread",
+        "x": 1910,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3078b122653b0602",
+        "type": "debug",
+        "z": "sleep_lab_auto_flow",
+        "name": "debug HR",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "847320b8062bb75f",
+        "type": "debug",
+        "z": "sleep_lab_auto_flow",
+        "name": "debug Temperatura",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1630,
+        "y": 540,
+        "wires": []
+    }
+]
