@@ -1,296 +1,168 @@
-# Sleep-Monitoring
-IoT Sleep Monitoring System
+#  IoT Sleep Monitoring System
 
-ESP32 + MQTT + Docker Microservices + Telegram
+**ESP32 + MQTT + Docker Microservices + Telegram**
 
-This project implements a distributed IoT system for sleep monitoring using:
+This project implements a distributed IoT system for sleep monitoring
+using:
 
-ESP32 devices (simulated in Wokwi or physical boards)
+-   ESP32 devices (simulated in Wokwi or physical boards)
+-   MQTT as event bus
+-   Dockerized microservices
+-   Telegram Bot for user interaction
+-   ThingSpeak (optional dashboard integration)
 
-MQTT as event bus
+The system automatically switches between **Night mode** and **Day
+mode** based on user-configured wake/sleep times stored in a central
+Catalog service.
 
-Dockerized microservices
+------------------------------------------------------------------------
 
-Telegram Bot for user interaction
+# System Architecture
 
-ThingSpeak (optional dashboard integration)
+ESP Devices \<--MQTT--\> Broker \<--MQTT--\> Microservices (Docker) \|
+└── Telegram Bot
 
-The system automatically switches between Night mode and Day mode based on user-configured wake/sleep times stored in a central Catalog service.
+MQTT Broker (public): test.mosquitto.org:1883
 
-System Architecture
-ESP Devices  <--MQTT-->  Broker  <--MQTT-->  Microservices (Docker)
-                                     |
-                                     └── Telegram Bot
+Base topic namespace: SC/`<user>`{=html}/`<room>`{=html}/...
+SC/alerts/`<user>`{=html}/`<room>`{=html}/...
 
-MQTT Broker (public):
+------------------------------------------------------------------------
 
-test.mosquitto.org:1883
+#  Core Logic
 
-Base topic namespace:
-
-SC/<user>/<room>/...
-SC/alerts/<user>/<room>/...
-Core Logic
-Night Mode
+## Night Mode
 
 Triggered when current time enters the sleep window.
 
-TimeShift publishes:
-
-sampling -> {"enable": true}
-
-bedtime
-
-Close curtain (servo 0°)
-
-Turn LED off
+TimeShift publishes: - sampling -\> {"enable": true} - bedtime - Close
+curtain (servo 0°) - Turn LED off
 
 Sensors begin monitoring.
 
-Day Mode
+------------------------------------------------------------------------
+
+##  Day Mode
 
 Triggered when wake time is reached.
 
-TimeShift publishes:
+TimeShift publishes: - sampling -\> {"enable": false} - wakeup -\>
+{"seconds": 30} - Open curtain (servo 90°) - LED decision based on
+ambient light - Monitoring disabled
 
-sampling -> {"enable": false}
+------------------------------------------------------------------------
 
-wakeup -> {"seconds": 30} (alarm duration)
+#  Microservices (Docker)
 
-Open curtain (servo 90°)
-
-LED decision based on ambient light
-
-Monitoring disabled
-
-Microservices (Docker)
-Catalog
+## Catalog
 
 Central configuration service.
 
-Stores:
-
-Users
-
-Rooms
-
-Devices
-
-Services
-
-User wake/sleep times
-
+Stores: - Users - Rooms - Devices - Services - User wake/sleep times -
 Threshold parameters
 
-Endpoints:
-
-GET /catalog
-GET /users
-GET /users/<userID>
+Endpoints: GET /catalog\
+GET /users\
+GET /users/`<userID>`{=html}\
 GET /rooms
-2️⃣ TimeShift
+
+------------------------------------------------------------------------
+
+##  TimeShift
 
 Orchestrates day/night transitions.
 
-Reads:
-
-user_information.timesleep
+Reads: user_information.timesleep\
 user_information.timeawake
 
-Publishes:
+Publishes: SC/`<user>`{=html}/`<room>`{=html}/sampling\
+SC/`<user>`{=html}/`<room>`{=html}/bedtime\
+SC/`<user>`{=html}/`<room>`{=html}/wakeup\
+SC/`<user>`{=html}/`<room>`{=html}/LedL\
+SC/`<user>`{=html}/`<room>`{=html}/servoV
 
-SC/<user>/<room>/sampling
-SC/<user>/<room>/bedtime
-SC/<user>/<room>/wakeup
-SC/<user>/<room>/LedL
-SC/<user>/<room>/servoV
-AlarmControl
+------------------------------------------------------------------------
+
+## AlarmControl
 
 Consumes telemetry and evaluates thresholds.
 
-Input:
+Input: SC/`<user>`{=html}/`<room>`{=html}/hr\
+SC/`<user>`{=html}/`<room>`{=html}/dht
 
-SC/<user>/<room>/hr
-SC/<user>/<room>/dht
+Output: SC/alerts/`<user>`{=html}/`<room>`{=html}/hr\
+SC/alerts/`<user>`{=html}/`<room>`{=html}/dht
 
-Output:
+------------------------------------------------------------------------
 
-SC/alerts/<user>/<room>/hr
-SC/alerts/<user>/<room>/dht
-TelegramBot
+##  TelegramBot
 
 User interface via Telegram.
 
-Features:
+Features: - Identity verification (phone number stored in Catalog) -
+Configure wake/sleep times - Configure thresholds - Receives alert
+messages - Sends notifications only: - On transition to ALERT - Every
+120 seconds if ALERT persists - Never on OK
 
-Identity verification (phone number stored in Catalog)
+------------------------------------------------------------------------
 
-Configure wake/sleep times
-
-Configure thresholds
-
-Receives alert messages
-
-Sends notifications only:
-
-On transition to ALERT
-
-Every 120 seconds if ALERT persists
-
-Never on OK
-
-ThingSpeak Bridge (optional)
+##  ThingSpeak Bridge (optional)
 
 Connects data streams to ThingSpeak dashboards.
 
-ESP Devices
-ESP1 — Heart Rate + Wake Alarm
+------------------------------------------------------------------------
 
-Publishes HR (SenML)
+#  ESP Devices
 
-Receives wakeup command
+## ESP1 --- Heart Rate + Wake Alarm
 
-Activates buzzer + LED during alarm
+-   Publishes HR (SenML)
+-   Receives wakeup command
+-   Activates buzzer + LED during alarm
 
-ESP2 — Temperature & Humidity (DHT)
+------------------------------------------------------------------------
 
-Publishes temp/humidity (SenML)
+## ESP2 --- Temperature & Humidity (DHT)
 
-Receives alert events
+-   Publishes temp/humidity (SenML)
+-   Receives alert events
+-   Controls ventilation servo
 
-Controls ventilation servo
+------------------------------------------------------------------------
 
-ESP3 — Ambient Light + Curtain
+## ESP3 --- Ambient Light + Curtain
 
-Publishes light raw value (SenML)
+-   Publishes light raw value (SenML)
+-   Receives:
+    -   LedL (SenML control)
+    -   servoV (0° or 90°)
+    -   sampling enable/disable
 
-Receives:
+------------------------------------------------------------------------
 
-LedL (SenML control)
+#  How to Run the System
 
-servoV (0° or 90°)
+##  Start Docker Services
 
-sampling enable/disable
-
-Message Formats
-Sampling Control
-{"enable": true}
-Wakeup Event
-{"seconds": 30}
-LED Control (SenML)
-[
-  {"bn":"stateLed","bt":0,
-   "e":[{"n":"LedL","u":"bool","vb":true}]}
-]
-Light Telemetry (SenML)
-[
-  {"bn":"lightValue","bt":0,
-   "e":[{"n":"raw","u":"lm","v":2048}]}
-]
-How to Run the System
-Start Docker Services
 docker compose up -d --build
 
-Verify Catalog:
+Verify Catalog: http://localhost:9080/catalog
 
-http://localhost:9080/catalog
-Start ESP Devices
+------------------------------------------------------------------------
 
-Connect ESP1, ESP2, ESP3
+## Start ESP Devices
 
-Ensure MQTT broker matches configuration
+-   Connect ESP1, ESP2, ESP3
+-   Ensure MQTT broker matches configuration
 
-Use Telegram Bot
+------------------------------------------------------------------------
 
-/start
+##  Use Telegram Bot
 
-Send registered phone number
-
-Configure wake/sleep times
-
-Configure thresholds
-
-Common Issues
-LED toggling repeatedly
-
-Cause:
-
-Multiple publishers writing to the same topic (LedL)
-
-Device echoing its own command
-
-Solution:
-
-Do not re-publish command payload after receiving it
-
-Or separate topics:
-
-LedL/cmd
-
-LedL/state
-
-Sampling not changing
-
-Check:
-
-Correct topic path ({User1} vs User1)
-
-MQTT broker connection
-
-TimeShift timezone configuration
-
-Servo conflict (number vs SenML)
-
-Best practice:
-
-Command topic: servoV/cmd → numeric
-
-State topic: servoV/state → SenML
-
-Suggested Repository Structure
-catalog/
-timeshift/
-alarm/
-telegram_bot/
-bridge_thingspeak/
-common/
-docker-compose.yml
-README.md
-Design Principles
-
-Event-driven architecture
-
-MQTT decoupling
-
-Stateless microservices
-
-Clear separation between:
-
-Command topics
-
-State topics
-
-Telemetry topics
-
-Alert topics
-
-Telegram Messages
-
-Night:
-
-“It’s bedtime. Monitoring is now active. Sleep well.”
-
-Day:
-
-“Time to wake up! Monitoring is disabled. Check your dashboard for results.”
-
-Test Checklist
-
- Sampling switches correctly at wake/sleep times
-
- Wake alarm triggers on ESP1
-
- Curtain moves correctly (0° night / 90° day)
+1.  /start
+2.  Send registered phone number
+3.  Configure wake/sleep times
+4.  Configure thresholds
 
  LED decision based on ambient light
 
